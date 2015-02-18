@@ -1,15 +1,15 @@
 'use strict';
 
 /**
-* stringExtensions
-*
-* Description
-*   util file for string extensions
-*/
+ * stringExtensions
+ *
+ * Description
+ *   util file for string extensions
+ */
 
 String.prototype.format = function() {
     var formatted = this;
-    for(var arg in arguments){
+    for (var arg in arguments) {
         formatted = formatted.replace('{' + arg + '}', arguments[arg]);
     }
     return formatted;

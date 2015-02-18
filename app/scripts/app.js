@@ -10,22 +10,23 @@
 
 angular
     .module('integrationsApp', ['ngRoute'])
-        .config(['$routeProvider',
-            function ($routeProvider) {
-                $routeProvider
-                    .when('/', {
-                        templateUrl: 'views/main.html',
-                        controller: 'MainCtrl',
-                        resolve :{
-                            fileService : function(fileService){
-                                return fileService;
-                            },
-                            sqlQueryService : function(sqlQueryService){
-                               return sqlQueryService;
-                            }
+    .config(['$routeProvider',
+        function($routeProvider) {
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'views/main.html',
+                    controller: 'MainCtrl',
+                    resolve: {
+                        fileService: function(fileService) {
+                            return fileService;
+                        },
+                        sqlQueryService: function(sqlQueryService) {
+                            return sqlQueryService;
                         }
-                    })
-                    .otherwise({
-                        redirectTo: '/'
-                    });
-}]);
+                    }
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+        }
+    ]);

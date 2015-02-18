@@ -1,43 +1,44 @@
 'use strict';
 
 /**
-* integrations service
-*
-* Description
-*   service to parse and get tags from html
-*/
+ * integrations service
+ *
+ * Description
+ *   service to parse and get tags from html
+ */
 
 angular.module('integrationsApp')
     .service('integrationsHtmlService', ['tagDictionary',
-        function (tagDictionary){
+        function(tagDictionary) {
             var htmlParser = {};
 
-            htmlParser.getHtmlTags = function(html){
+            htmlParser.getHtmlTags = function(html) {
                 var rawTags = getRawTags(html);
                 return getFormattedTags(rawTags);
             };
 
-            function getRawTags(html){
+            function getRawTags(html) {
                 var regex = /name=(\w+)/g;
-                var htmlTags = [], found = [];
-                while((found = regex.exec(html))){
+                var htmlTags = [],
+                    found = [];
+                while ((found = regex.exec(html))) {
                     htmlTags.push(found[1]);
                 }
                 return htmlTags;
             }
 
-            function getFormattedTags(tags){
+            function getFormattedTags(tags) {
                 var htmlTags = getTagsWithPrefixes(tags);
                 return getValidTags(htmlTags);
             }
 
-            function getTagsWithPrefixes(tags){
+            function getTagsWithPrefixes(tags) {
                 var companyPrefix = 'company|';
                 var customerPrefix = 'customer|';
                 var formattedTags = [];
 
-                tags.forEach(function(curr){
-                    if (curr.substr(0,4).localeCompare('rep_') === 0){
+                tags.forEach(function(curr) {
+                    if (curr.substr(0, 4).localeCompare('rep_') === 0) {
                         formattedTags.push(companyPrefix.concat(curr));
                     } else {
                         formattedTags.push(customerPrefix.concat(curr));
@@ -46,10 +47,10 @@ angular.module('integrationsApp')
                 return formattedTags;
             }
 
-            function getValidTags(tags){
+            function getValidTags(tags) {
                 var temp = [];
-                tags.forEach(function(curr){
-                    if (tagDictionary[curr]){
+                tags.forEach(function(curr) {
+                    if (tagDictionary[curr]) {
                         temp.push(curr);
                     }
                 });
@@ -57,4 +58,5 @@ angular.module('integrationsApp')
             }
 
             return htmlParser;
-}]);
+        }
+    ]);
